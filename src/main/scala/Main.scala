@@ -1,4 +1,10 @@
-import com.ocado.system.squeryl.core.Library
+import Service.UserService
+import org.squeryl.SessionFactory
+import transaction.{SessionManager, PostgresSessionManager}
+import model.{Vip, User, Library}
+import org.squeryl.PrimitiveTypeMode._
+import system.Setting
+
 
 /**
  * Author: yanyang.wang
@@ -6,9 +12,9 @@ import com.ocado.system.squeryl.core.Library
  */
 object Main {
   def main(args: Array[String]) {
-    //com.ocado.cqrs
     println("Hello world")
-    val test = new Test
-    test.test
+    val sesFactory: SessionFactory = new PostgresSessionManager(Setting.postgresUrl, Setting.postgresUser, Setting.postgresPwd)
+    val service = new UserService(sesFactory)
+    service.addDummyUser
   }
 }
